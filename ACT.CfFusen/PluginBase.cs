@@ -14,7 +14,11 @@ namespace ACT.CfFusen
     {
         Overlay formOverlay = null;
 
+#if DEBUG
+        string settingsFile = null;
+#else //DEBUG
         string settingsFile = Path.Combine(ActGlobals.oFormActMain.AppDataFolder.FullName, "Config\\" + Assembly.GetExecutingAssembly().GetName().Name + ".config.xml");
+#endif //DEBUG
         SettingsSerializer xmlSettings;
 
         public PluginBase()
@@ -36,7 +40,9 @@ namespace ACT.CfFusen
             xmlSettings = new SettingsSerializer(this);
             LoadSettings();
 
+#if !DEBUG
             ActGlobals.oFormActMain.OnLogLineRead += OnLogLineRead;
+#endif //DEBUG
         }
 
         private void buttonBrowse_Click(object sender, EventArgs e)
@@ -64,37 +70,49 @@ namespace ACT.CfFusen
         {
             if (((CheckBox)(sender)).CheckState == CheckState.Checked)
             {
-                //LoadSettingsよりこっちが先に動く
-                if (formOverlay == null)
-                {
-                    formOverlay = new Overlay();
-                    if (!(textXpos1.Text.Equals(String.Empty)))
-                    {
-                        var position = new Point(int.Parse(textXpos1.Text), int.Parse(textYpos1.Text));
-                        formOverlay.Location = position;
-                    }
-                    if (!(textHsize1.Text.Equals(String.Empty)))
-                    {
-                        formOverlay.Size = new Size(int.Parse(textWsize1.Text), int.Parse(textHsize1.Text));
-                    }
-                    formOverlay.TopMost = checkBoxFront.Checked;
-
-                    formOverlay.Move += new EventHandler(formOverlay_Move);
-                    formOverlay.Resize += new EventHandler(formOverlay_Resize);
-                    formOverlay.Show();
-                }
+                showOverlay();
             }
             else
             {
-                if (formOverlay != null)
-                {
-                    formOverlay.Close();
-                    formOverlay = null;
-                }
+                closeOverlay();
             }
             SaveSettings();
         }
 
+        private void showOverlay()
+        {
+            //LoadSettingsよりこっちが先に動く
+            if (formOverlay == null)
+            {
+                formOverlay = new Overlay();
+                if (!(textXpos1.Text.Equals(String.Empty)))
+                {
+                    var position = new Point(int.Parse(textXpos1.Text), int.Parse(textYpos1.Text));
+                    formOverlay.Location = position;
+                }
+                if (!(textHsize1.Text.Equals(String.Empty)))
+                {
+                    formOverlay.Size = new Size(int.Parse(textWsize1.Text), int.Parse(textHsize1.Text));
+                }
+                formOverlay.TopMost = checkBoxFront.Checked;
+
+                formOverlay.Move += new EventHandler(formOverlay_Move);
+                formOverlay.Resize += new EventHandler(formOverlay_Resize);
+                formOverlay.Show();
+                if (this.checkBoxAuto.Checked)
+                {
+                    this.formOverlay.Hide();
+                }
+            }
+        }
+        private void closeOverlay()
+        {
+            if (formOverlay != null)
+            {
+                formOverlay.Close();
+                formOverlay = null;
+            }
+        }
         private void checkBoxFront_CheckStateChanged(object sender, EventArgs e)
         {
             if (formOverlay != null)
@@ -110,7 +128,10 @@ namespace ACT.CfFusen
             }
             SaveSettings();
         }
-
+        private void checkBoxAuto_CheckStateChanged(object sender, EventArgs e)
+        {
+            SaveSettings();
+        }
         private void formOverlay_Move(object sender, EventArgs e)
         {
             textXpos1.Text = formOverlay.Left.ToString();
@@ -131,6 +152,11 @@ namespace ACT.CfFusen
             SaveSettings();
         }
 
+        public void OnLogLineReadp(bool isImport, LogLineEventArgs logInfo)
+        {
+            OnLogLineRead(isImport, logInfo);
+        }
+
         private void OnLogLineRead(bool isImport, LogLineEventArgs logInfo)
         {
             if (isImport) return;
@@ -148,6 +174,10 @@ namespace ACT.CfFusen
 
             if ((logType[1].Equals("ChatLog")) && (chatLogType.Equals("0839")) && logMessage[1].IndexOf("の攻略を開始した。") >= 0)
             {
+                if (this.checkBoxAuto.Checked)
+                {
+                    this.formOverlay.Show();
+                }
                 if (this.textFusenDirectory.Text.Equals(string.Empty) || !Directory.Exists(this.textFusenDirectory.Text)) { return; }
                 try
                 {
@@ -166,6 +196,10 @@ namespace ACT.CfFusen
             else if ((logType[1].Equals("ChatLog")) && (chatLogType.Equals("0839")) && logMessage[1].IndexOf("の攻略を終了した。") >= 0)
             {
                 formOverlay.OnFusenClearp(this, null);
+                if (checkBoxAuto.Checked)
+                {
+                    this.formOverlay.Hide();
+                }
             }
         }
 
@@ -177,6 +211,7 @@ namespace ACT.CfFusen
             xmlSettings.AddControlSetting(textHsize1.Name, textHsize1);
             xmlSettings.AddControlSetting(textFusenDirectory.Name, textFusenDirectory);
             xmlSettings.AddControlSetting(checkboxOverlay.Name, checkboxOverlay);
+            xmlSettings.AddControlSetting(checkBoxAuto.Name, checkBoxAuto);
 
             if (File.Exists(settingsFile))
             {
@@ -205,20 +240,23 @@ namespace ACT.CfFusen
         }
         void SaveSettings()
         {
-            FileStream fs = new FileStream(settingsFile, FileMode.Create, FileAccess.Write, FileShare.ReadWrite);
-            XmlTextWriter xWriter = new XmlTextWriter(fs, Encoding.UTF8);
-            xWriter.Formatting = Formatting.Indented;
-            xWriter.Indentation = 1;
-            xWriter.IndentChar = '\t';
-            xWriter.WriteStartDocument(true);
-            xWriter.WriteStartElement("Config");    // <Config>
-            xWriter.WriteStartElement("SettingsSerializer");    // <Config><SettingsSerializer>
-            xmlSettings.ExportToXml(xWriter);   // Fill the SettingsSerializer XML
-            xWriter.WriteEndElement();  // </SettingsSerializer>
-            xWriter.WriteEndElement();  // </Config>
-            xWriter.WriteEndDocument(); // Tie up loose ends (shouldn't be any)
-            xWriter.Flush();    // Flush the file buffer to disk
-            xWriter.Close();
+            if (File.Exists(settingsFile))
+            {
+                FileStream fs = new FileStream(settingsFile, FileMode.Create, FileAccess.Write, FileShare.ReadWrite);
+                XmlTextWriter xWriter = new XmlTextWriter(fs, Encoding.UTF8);
+                xWriter.Formatting = Formatting.Indented;
+                xWriter.Indentation = 1;
+                xWriter.IndentChar = '\t';
+                xWriter.WriteStartDocument(true);
+                xWriter.WriteStartElement("Config");    // <Config>
+                xWriter.WriteStartElement("SettingsSerializer");    // <Config><SettingsSerializer>
+                xmlSettings.ExportToXml(xWriter);   // Fill the SettingsSerializer XML
+                xWriter.WriteEndElement();  // </SettingsSerializer>
+                xWriter.WriteEndElement();  // </Config>
+                xWriter.WriteEndDocument(); // Tie up loose ends (shouldn't be any)
+                xWriter.Flush();    // Flush the file buffer to disk
+                xWriter.Close();
+            }
         }
     }
 }

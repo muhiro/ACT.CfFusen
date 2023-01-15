@@ -42,6 +42,7 @@
             this.textFusenDirectory = new System.Windows.Forms.TextBox();
             this.textYpos1 = new System.Windows.Forms.TextBox();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
+            this.checkBoxAuto = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -66,6 +67,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.checkBoxAuto);
             this.groupBox1.Controls.Add(this.checkBoxFront);
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.label3);
@@ -82,7 +84,7 @@
             this.groupBox1.Margin = new System.Windows.Forms.Padding(27, 25, 27, 25);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox1.Size = new System.Drawing.Size(593, 99);
+            this.groupBox1.Size = new System.Drawing.Size(593, 123);
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "コンテンツファインダー付箋";
@@ -158,9 +160,9 @@
             this.checkboxOverlay.Location = new System.Drawing.Point(8, 60);
             this.checkboxOverlay.Margin = new System.Windows.Forms.Padding(4);
             this.checkboxOverlay.Name = "checkboxOverlay";
-            this.checkboxOverlay.Size = new System.Drawing.Size(154, 19);
+            this.checkboxOverlay.Size = new System.Drawing.Size(142, 19);
             this.checkboxOverlay.TabIndex = 4;
-            this.checkboxOverlay.Text = "Overlayを有効にする";
+            this.checkboxOverlay.Text = "Overlayを表示する";
             this.checkboxOverlay.UseVisualStyleBackColor = true;
             this.checkboxOverlay.CheckStateChanged += new System.EventHandler(this.checkboxOverlay_CheckStateChanged);
             // 
@@ -180,6 +182,19 @@
             this.textYpos1.Size = new System.Drawing.Size(39, 22);
             this.textYpos1.TabIndex = 2;
             // 
+            // checkBoxAuto
+            // 
+            this.checkBoxAuto.AutoSize = true;
+            this.checkBoxAuto.Checked = true;
+            this.checkBoxAuto.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxAuto.Location = new System.Drawing.Point(8, 87);
+            this.checkBoxAuto.Name = "checkBoxAuto";
+            this.checkBoxAuto.Size = new System.Drawing.Size(382, 19);
+            this.checkBoxAuto.TabIndex = 13;
+            this.checkBoxAuto.Text = "コンテンツに入ったら自動で表示して終わったら自動で非表示";
+            this.checkBoxAuto.UseVisualStyleBackColor = true;
+            this.checkBoxAuto.CheckStateChanged += new System.EventHandler(this.checkBoxAuto_CheckStateChanged);
+            // 
             // PluginBase
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
@@ -187,7 +202,7 @@
             this.Controls.Add(this.groupBox1);
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "PluginBase";
-            this.Size = new System.Drawing.Size(647, 151);
+            this.Size = new System.Drawing.Size(647, 191);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
@@ -210,5 +225,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.CheckBox checkBoxFront;
+        private System.Windows.Forms.CheckBox checkBoxAuto;
     }
 }
