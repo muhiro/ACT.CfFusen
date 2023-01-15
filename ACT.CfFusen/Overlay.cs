@@ -31,6 +31,13 @@ namespace ACT.CfFusen
             this.richTextFusen.DetectUrls = true;
             this.richTextFusen.ReadOnly = true;
         }
+        protected override bool ShowWithoutActivation
+        {
+            get
+            {
+                return true;
+            }
+        }
 
         const int CS_DROPSHADOW = 0x00020000;
         const int WS_BORDER = 0x00800000;
