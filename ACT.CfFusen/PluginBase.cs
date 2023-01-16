@@ -45,6 +45,26 @@ namespace ACT.CfFusen
 #endif //DEBUG
         }
 
+        private void buttonBrowseFile_Click(object sender, EventArgs e)
+        {
+            var ofd = new OpenFileDialog()
+            {
+                Title = "ファイルを選択してください",
+                InitialDirectory = textDefaultFusen.Text,
+                FileName = "File Selection",
+                Filter = "RTF文書|*.rtf",
+                ValidateNames = true,
+                CheckFileExists = true,
+                CheckPathExists = true,
+            };
+
+            if (ofd.ShowDialog() == DialogResult.OK)
+            {
+                textDefaultFusen.Text = ofd.FileName;
+            }
+            ofd.Dispose();
+            SaveSettings();
+        }
         private void buttonBrowse_Click(object sender, EventArgs e)
         {
             var ofd = new OpenFileDialog()
@@ -102,6 +122,17 @@ namespace ACT.CfFusen
                 if (this.checkBoxAuto.Checked)
                 {
                     this.formOverlay.Hide();
+                }
+                else
+                {
+                    if (File.Exists(textDefaultFusen.Text))
+                    {
+                        FusenReadEventArgs fusenInfo = new FusenReadEventArgs();
+                        fusenInfo.ContentName = Path.GetFileNameWithoutExtension(textDefaultFusen.Text);
+                        fusenInfo.FusenDirectory = Path.GetDirectoryName(textDefaultFusen.Text);
+
+                        formOverlay.OnFusenReadp(this, fusenInfo);
+                    }
                 }
             }
         }
@@ -200,6 +231,16 @@ namespace ACT.CfFusen
                 {
                     this.formOverlay.Hide();
                 }
+                else
+                {
+                    if (File.Exists(textDefaultFusen.Text))
+                    {
+                        fusenInfo.ContentName = Path.GetFileNameWithoutExtension(textDefaultFusen.Text);
+                        fusenInfo.FusenDirectory = Path.GetDirectoryName(textDefaultFusen.Text);
+
+                        formOverlay.OnFusenReadp(this, fusenInfo);
+                    }
+                }
             }
         }
 
@@ -210,6 +251,7 @@ namespace ACT.CfFusen
             xmlSettings.AddControlSetting(textWsize1.Name, textWsize1);
             xmlSettings.AddControlSetting(textHsize1.Name, textHsize1);
             xmlSettings.AddControlSetting(textFusenDirectory.Name, textFusenDirectory);
+            xmlSettings.AddControlSetting(textDefaultFusen.Name, textDefaultFusen);
             xmlSettings.AddControlSetting(checkboxOverlay.Name, checkboxOverlay);
             xmlSettings.AddControlSetting(checkBoxAuto.Name, checkBoxAuto);
 
