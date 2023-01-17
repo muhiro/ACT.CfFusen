@@ -14,21 +14,18 @@ namespace ACT.CfFusen
     {
         Overlay formOverlay = null;
 
-#if DEBUG
         string settingsFile = null;
-#else //DEBUG
-        string settingsFile = Path.Combine(ActGlobals.oFormActMain.AppDataFolder.FullName, "Config\\" + Assembly.GetExecutingAssembly().GetName().Name + ".config.xml");
-#endif //DEBUG
         SettingsSerializer xmlSettings;
 
         public PluginBase()
         {
+            if (ActGlobals.oFormActMain != null) { settingsFile = Path.Combine(ActGlobals.oFormActMain.AppDataFolder.FullName, "Config\\" + Assembly.GetExecutingAssembly().GetName().Name + ".config.xml"); }
             InitializeComponent();
         }
 
         public void DeInitPlugin()
         {
-            ActGlobals.oFormActMain.OnLogLineRead -= OnLogLineRead;
+            if (ActGlobals.oFormActMain != null) { ActGlobals.oFormActMain.OnLogLineRead -= OnLogLineRead; }
             formOverlay.Close();
         }
 
@@ -40,9 +37,7 @@ namespace ACT.CfFusen
             xmlSettings = new SettingsSerializer(this);
             LoadSettings();
 
-#if !DEBUG
-            ActGlobals.oFormActMain.OnLogLineRead += OnLogLineRead;
-#endif //DEBUG
+            if (ActGlobals.oFormActMain != null) { ActGlobals.oFormActMain.OnLogLineRead += OnLogLineRead; }
         }
 
         private void buttonBrowseFile_Click(object sender, EventArgs e)
@@ -88,13 +83,14 @@ namespace ACT.CfFusen
 
         private void checkboxOverlay_CheckStateChanged(object sender, EventArgs e)
         {
+            Logging.Debug(((CheckBox)(sender)).CheckState.ToString());
             if (((CheckBox)(sender)).CheckState == CheckState.Checked)
             {
                 showOverlay();
             }
             else
             {
-                closeOverlay();
+                this.formOverlay.Hide();
             }
             SaveSettings();
         }
@@ -119,21 +115,18 @@ namespace ACT.CfFusen
                 formOverlay.Move += new EventHandler(formOverlay_Move);
                 formOverlay.Resize += new EventHandler(formOverlay_Resize);
                 formOverlay.Show();
-                if (this.checkBoxAuto.Checked)
+                if (File.Exists(textDefaultFusen.Text))
                 {
-                    this.formOverlay.Hide();
-                }
-                else
-                {
-                    if (File.Exists(textDefaultFusen.Text))
-                    {
-                        FusenReadEventArgs fusenInfo = new FusenReadEventArgs();
-                        fusenInfo.ContentName = Path.GetFileNameWithoutExtension(textDefaultFusen.Text);
-                        fusenInfo.FusenDirectory = Path.GetDirectoryName(textDefaultFusen.Text);
+                    FusenReadEventArgs fusenInfo = new FusenReadEventArgs();
+                    fusenInfo.ContentName = Path.GetFileNameWithoutExtension(textDefaultFusen.Text);
+                    fusenInfo.FusenDirectory = Path.GetDirectoryName(textDefaultFusen.Text);
 
-                        formOverlay.OnFusenReadp(this, fusenInfo);
-                    }
+                    formOverlay.OnFusenReadp(this, fusenInfo);
                 }
+            }
+            else
+            {
+                this.formOverlay.Show();
             }
         }
         private void closeOverlay()
@@ -207,7 +200,7 @@ namespace ACT.CfFusen
             {
                 if (this.checkBoxAuto.Checked)
                 {
-                    this.formOverlay.Show();
+                    this.checkboxOverlay.Checked = true;
                 }
                 if (this.textFusenDirectory.Text.Equals(string.Empty) || !Directory.Exists(this.textFusenDirectory.Text)) { return; }
                 try
@@ -229,7 +222,7 @@ namespace ACT.CfFusen
                 formOverlay.OnFusenClearp(this, null);
                 if (checkBoxAuto.Checked)
                 {
-                    this.formOverlay.Hide();
+                    this.checkboxOverlay.Checked = false;
                 }
                 else
                 {
