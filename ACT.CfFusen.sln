@@ -5,6 +5,8 @@ VisualStudioVersion = 17.4.33205.214
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ACT.CfFusen", "ACT.CfFusen\ACT.CfFusen.csproj", "{3DC0BB5A-2999-4C82-8694-9386A65EBE79}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ACT.CfFusen.Test", "ACT.CfFusen.Test\ACT.CfFusen.Test.csproj", "{DF075E29-A51D-456F-8C94-4D46C4B1B5E4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{3DC0BB5A-2999-4C82-8694-9386A65EBE79}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3DC0BB5A-2999-4C82-8694-9386A65EBE79}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3DC0BB5A-2999-4C82-8694-9386A65EBE79}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DF075E29-A51D-456F-8C94-4D46C4B1B5E4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DF075E29-A51D-456F-8C94-4D46C4B1B5E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DF075E29-A51D-456F-8C94-4D46C4B1B5E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DF075E29-A51D-456F-8C94-4D46C4B1B5E4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

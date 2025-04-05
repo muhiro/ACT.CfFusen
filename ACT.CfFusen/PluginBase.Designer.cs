@@ -31,6 +31,13 @@
             this.buttonBrowse = new System.Windows.Forms.Button();
             this.textXpos1 = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.labelTemplateFusen = new System.Windows.Forms.Label();
+            this.buttonBrowseTemplateFile = new System.Windows.Forms.Button();
+            this.textTemplateFusen = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.labelDefaultFusen = new System.Windows.Forms.Label();
+            this.buttonBrowseFile = new System.Windows.Forms.Button();
+            this.textDefaultFusen = new System.Windows.Forms.TextBox();
             this.checkBoxAuto = new System.Windows.Forms.CheckBox();
             this.checkBoxFront = new System.Windows.Forms.CheckBox();
             this.label4 = new System.Windows.Forms.Label();
@@ -43,10 +50,6 @@
             this.textFusenDirectory = new System.Windows.Forms.TextBox();
             this.textYpos1 = new System.Windows.Forms.TextBox();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
-            this.textDefaultFusen = new System.Windows.Forms.TextBox();
-            this.buttonBrowseFile = new System.Windows.Forms.Button();
-            this.labelDefaultFusen = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -63,7 +66,7 @@
             // 
             // textXpos1
             // 
-            this.textXpos1.Location = new System.Drawing.Point(336, 86);
+            this.textXpos1.Location = new System.Drawing.Point(336, 138);
             this.textXpos1.Margin = new System.Windows.Forms.Padding(4);
             this.textXpos1.Name = "textXpos1";
             this.textXpos1.Size = new System.Drawing.Size(39, 22);
@@ -71,6 +74,9 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.labelTemplateFusen);
+            this.groupBox1.Controls.Add(this.buttonBrowseTemplateFile);
+            this.groupBox1.Controls.Add(this.textTemplateFusen);
             this.groupBox1.Controls.Add(this.label5);
             this.groupBox1.Controls.Add(this.labelDefaultFusen);
             this.groupBox1.Controls.Add(this.buttonBrowseFile);
@@ -92,17 +98,82 @@
             this.groupBox1.Margin = new System.Windows.Forms.Padding(27, 25, 27, 25);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox1.Size = new System.Drawing.Size(593, 162);
+            this.groupBox1.Size = new System.Drawing.Size(593, 236);
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "コンテンツファインダー付箋";
+            // 
+            // labelTemplateFusen
+            // 
+            this.labelTemplateFusen.AutoSize = true;
+            this.labelTemplateFusen.Location = new System.Drawing.Point(7, 100);
+            this.labelTemplateFusen.Name = "labelTemplateFusen";
+            this.labelTemplateFusen.Size = new System.Drawing.Size(116, 15);
+            this.labelTemplateFusen.TabIndex = 20;
+            this.labelTemplateFusen.Text = "付箋のテンプレート";
+            // 
+            // buttonBrowseTemplateFile
+            // 
+            this.buttonBrowseTemplateFile.Location = new System.Drawing.Point(485, 93);
+            this.buttonBrowseTemplateFile.Margin = new System.Windows.Forms.Padding(4);
+            this.buttonBrowseTemplateFile.Name = "buttonBrowseTemplateFile";
+            this.buttonBrowseTemplateFile.Size = new System.Drawing.Size(100, 29);
+            this.buttonBrowseTemplateFile.TabIndex = 19;
+            this.buttonBrowseTemplateFile.Text = "参照";
+            this.buttonBrowseTemplateFile.UseVisualStyleBackColor = true;
+            this.buttonBrowseTemplateFile.Click += new System.EventHandler(this.buttonBrowseTemplateFile_Click);
+            // 
+            // textTemplateFusen
+            // 
+            this.textTemplateFusen.Location = new System.Drawing.Point(135, 97);
+            this.textTemplateFusen.Margin = new System.Windows.Forms.Padding(4);
+            this.textTemplateFusen.Name = "textTemplateFusen";
+            this.textTemplateFusen.Size = new System.Drawing.Size(342, 22);
+            this.textTemplateFusen.TabIndex = 18;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(7, 26);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(98, 15);
+            this.label5.TabIndex = 17;
+            this.label5.Text = "付箋ディレクトリ";
+            // 
+            // labelDefaultFusen
+            // 
+            this.labelDefaultFusen.AutoSize = true;
+            this.labelDefaultFusen.Location = new System.Drawing.Point(7, 63);
+            this.labelDefaultFusen.Name = "labelDefaultFusen";
+            this.labelDefaultFusen.Size = new System.Drawing.Size(121, 15);
+            this.labelDefaultFusen.TabIndex = 16;
+            this.labelDefaultFusen.Text = "通常表示する付箋";
+            // 
+            // buttonBrowseFile
+            // 
+            this.buttonBrowseFile.Location = new System.Drawing.Point(485, 56);
+            this.buttonBrowseFile.Margin = new System.Windows.Forms.Padding(4);
+            this.buttonBrowseFile.Name = "buttonBrowseFile";
+            this.buttonBrowseFile.Size = new System.Drawing.Size(100, 29);
+            this.buttonBrowseFile.TabIndex = 15;
+            this.buttonBrowseFile.Text = "参照";
+            this.buttonBrowseFile.UseVisualStyleBackColor = true;
+            this.buttonBrowseFile.Click += new System.EventHandler(this.buttonBrowseFile_Click);
+            // 
+            // textDefaultFusen
+            // 
+            this.textDefaultFusen.Location = new System.Drawing.Point(135, 60);
+            this.textDefaultFusen.Margin = new System.Windows.Forms.Padding(4);
+            this.textDefaultFusen.Name = "textDefaultFusen";
+            this.textDefaultFusen.Size = new System.Drawing.Size(342, 22);
+            this.textDefaultFusen.TabIndex = 14;
             // 
             // checkBoxAuto
             // 
             this.checkBoxAuto.AutoSize = true;
             this.checkBoxAuto.Checked = true;
             this.checkBoxAuto.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxAuto.Location = new System.Drawing.Point(8, 115);
+            this.checkBoxAuto.Location = new System.Drawing.Point(7, 187);
             this.checkBoxAuto.Name = "checkBoxAuto";
             this.checkBoxAuto.Size = new System.Drawing.Size(382, 19);
             this.checkBoxAuto.TabIndex = 13;
@@ -115,7 +186,7 @@
             this.checkBoxFront.AutoSize = true;
             this.checkBoxFront.Checked = true;
             this.checkBoxFront.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxFront.Location = new System.Drawing.Point(170, 88);
+            this.checkBoxFront.Location = new System.Drawing.Point(170, 140);
             this.checkBoxFront.Name = "checkBoxFront";
             this.checkBoxFront.Size = new System.Drawing.Size(110, 19);
             this.checkBoxFront.TabIndex = 12;
@@ -126,7 +197,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(521, 89);
+            this.label4.Location = new System.Drawing.Point(521, 141);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(18, 15);
             this.label4.TabIndex = 11;
@@ -135,7 +206,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(451, 90);
+            this.label3.Location = new System.Drawing.Point(451, 142);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(17, 15);
             this.label3.TabIndex = 10;
@@ -144,7 +215,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(382, 90);
+            this.label2.Location = new System.Drawing.Point(382, 142);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(16, 15);
             this.label2.TabIndex = 9;
@@ -153,7 +224,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(313, 90);
+            this.label1.Location = new System.Drawing.Point(313, 142);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(16, 15);
             this.label1.TabIndex = 8;
@@ -161,7 +232,7 @@
             // 
             // textWsize1
             // 
-            this.textWsize1.Location = new System.Drawing.Point(546, 86);
+            this.textWsize1.Location = new System.Drawing.Point(546, 138);
             this.textWsize1.Margin = new System.Windows.Forms.Padding(4);
             this.textWsize1.Name = "textWsize1";
             this.textWsize1.Size = new System.Drawing.Size(39, 22);
@@ -169,7 +240,7 @@
             // 
             // textHsize1
             // 
-            this.textHsize1.Location = new System.Drawing.Point(475, 86);
+            this.textHsize1.Location = new System.Drawing.Point(475, 138);
             this.textHsize1.Margin = new System.Windows.Forms.Padding(4);
             this.textHsize1.Name = "textHsize1";
             this.textHsize1.Size = new System.Drawing.Size(39, 22);
@@ -178,7 +249,7 @@
             // checkboxOverlay
             // 
             this.checkboxOverlay.AutoSize = true;
-            this.checkboxOverlay.Location = new System.Drawing.Point(8, 88);
+            this.checkboxOverlay.Location = new System.Drawing.Point(8, 140);
             this.checkboxOverlay.Margin = new System.Windows.Forms.Padding(4);
             this.checkboxOverlay.Name = "checkboxOverlay";
             this.checkboxOverlay.Size = new System.Drawing.Size(142, 19);
@@ -197,48 +268,11 @@
             // 
             // textYpos1
             // 
-            this.textYpos1.Location = new System.Drawing.Point(405, 86);
+            this.textYpos1.Location = new System.Drawing.Point(405, 138);
             this.textYpos1.Margin = new System.Windows.Forms.Padding(4);
             this.textYpos1.Name = "textYpos1";
             this.textYpos1.Size = new System.Drawing.Size(39, 22);
             this.textYpos1.TabIndex = 2;
-            // 
-            // textDefaultFusen
-            // 
-            this.textDefaultFusen.Location = new System.Drawing.Point(135, 53);
-            this.textDefaultFusen.Margin = new System.Windows.Forms.Padding(4);
-            this.textDefaultFusen.Name = "textDefaultFusen";
-            this.textDefaultFusen.Size = new System.Drawing.Size(342, 22);
-            this.textDefaultFusen.TabIndex = 14;
-            // 
-            // buttonBrowseFile
-            // 
-            this.buttonBrowseFile.Location = new System.Drawing.Point(485, 49);
-            this.buttonBrowseFile.Margin = new System.Windows.Forms.Padding(4);
-            this.buttonBrowseFile.Name = "buttonBrowseFile";
-            this.buttonBrowseFile.Size = new System.Drawing.Size(100, 29);
-            this.buttonBrowseFile.TabIndex = 15;
-            this.buttonBrowseFile.Text = "参照";
-            this.buttonBrowseFile.UseVisualStyleBackColor = true;
-            this.buttonBrowseFile.Click += new System.EventHandler(this.buttonBrowseFile_Click);
-            // 
-            // labelDefaultFusen
-            // 
-            this.labelDefaultFusen.AutoSize = true;
-            this.labelDefaultFusen.Location = new System.Drawing.Point(7, 56);
-            this.labelDefaultFusen.Name = "labelDefaultFusen";
-            this.labelDefaultFusen.Size = new System.Drawing.Size(121, 15);
-            this.labelDefaultFusen.TabIndex = 16;
-            this.labelDefaultFusen.Text = "通常表示する付箋";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(7, 26);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(98, 15);
-            this.label5.TabIndex = 17;
-            this.label5.Text = "付箋ディレクトリ";
             // 
             // PluginBase
             // 
@@ -275,5 +309,8 @@
         private System.Windows.Forms.Label labelDefaultFusen;
         private System.Windows.Forms.Button buttonBrowseFile;
         private System.Windows.Forms.TextBox textDefaultFusen;
+        private System.Windows.Forms.Label labelTemplateFusen;
+        private System.Windows.Forms.Button buttonBrowseTemplateFile;
+        private System.Windows.Forms.TextBox textTemplateFusen;
     }
 }

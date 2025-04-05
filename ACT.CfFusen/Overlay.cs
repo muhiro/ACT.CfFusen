@@ -86,10 +86,21 @@ namespace ACT.CfFusen
             }
             catch (FileNotFoundException)
             {
-                this.richTextFusen.SaveFile(fusenPath, RichTextBoxStreamType.RichText);
+                if (args.FusenTemplate != null)
+                {
+                    File.Copy(args.FusenTemplate, fusenPath);
+                    this.richTextFusen.LoadFile(fusenPath, RichTextBoxStreamType.RichText);
 
-                this.richTextFusen.ReadOnly = true;
-                this.richTextFusen.DetectUrls = true;
+                    this.richTextFusen.ReadOnly = true;
+                    this.richTextFusen.DetectUrls = true;
+                }
+                else
+                {
+                    this.richTextFusen.SaveFile(fusenPath, RichTextBoxStreamType.RichText);
+
+                    this.richTextFusen.ReadOnly = true;
+                    this.richTextFusen.DetectUrls = true;
+                }
             }
             catch (IOException ex)
             {
@@ -169,5 +180,6 @@ namespace ACT.CfFusen
     {
         public string ContentName { get; set; }
         public string FusenDirectory { get; set; }
+        public string FusenTemplate { get; set; }
     }
 }
